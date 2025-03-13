@@ -10,7 +10,8 @@ import {
     DialogContent,
     DialogDescription,
     DialogHeader,
-    DialogTitle
+    DialogTitle,
+    DialogClose
 } from "@/components/ui/dialog"
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from '@react-oauth/google';
@@ -61,6 +62,7 @@ function CreateTrip() {
         const user = await localStorage.getItem('user');
         if (!user) {
             setOpenDialog(true);
+            return;
         }
 
         if (!formData?.location || !formData?.budget || !formData?.traveler || !formData?.noOfDays) {
@@ -145,7 +147,7 @@ function CreateTrip() {
                         <div key={index}
                             onClick={() => handleInputChange('traveler', item.people)}
                             className={`p-4 border rounded-lg hover:shadow-lg
-                            ${formData?.budget == item.title && 'shadow-lg border-black'}`}>
+                            ${formData?.traveler == item.people && 'shadow-lg border-black'}`}>
                             <h2 className='text-4xl'>{item.icon}</h2>
                             <h2 className='font-bold text-lg'>{item.title}</h2>
                             <h2 className='text-sm text-gray-500'>{item.desc}</h2>
@@ -160,9 +162,10 @@ function CreateTrip() {
                 </Button>
             </div>
 
-            <Dialog open={openDialog}>
+            <Dialog open={openDialog} onOpenChange={setOpenDialog}>
                 <DialogContent>
                     <DialogHeader>
+                        <DialogTitle>Sign In</DialogTitle>
                         <DialogDescription>
                             <img src="/logo.svg" />
                             <h2 className='font-bold text-lg mt-7'>Sign In with Google</h2>

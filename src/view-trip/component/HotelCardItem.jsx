@@ -12,7 +12,7 @@ function HotelCardItem({ hotel }) {
     const GetPlacePhoto = async () => {
         const data = { textQuery: hotel?.hotelName }
         const result = await GetPlaceDetails(data).then(resp => {
-            const PhotoUrl = PHOTO_REF_URl.replace('{NAME}', resp?.data?.places[0]?.photos[0]?.name);
+            const PhotoUrl = PHOTO_REF_URl.replace('{NAME}', resp?.data?.places[0]?.photos[3]?.name);
             setPhoto(PhotoUrl);
         })
 
